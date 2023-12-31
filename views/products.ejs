@@ -24,11 +24,14 @@
     <tbody>
       <% products.forEach(product => { %>
         <tr>
-          <td><%= product.product_id %></td>
+          <td><%= product.pid %></td>
           <td><%= product.description %></td>
           <td><%= product.sid %></td>
           <td><%= product.location %></td>
           <td><%= product.price %></td>
+          <td>
+          <a href="/products/delete/<%= product.pid %>">Delete</a>
+        </td>
         </tr>
       <% }) %>
     </tbody>

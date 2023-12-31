@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const mysql = require('mysql');
 const ejs = require('ejs');
-const bodyParser = require('body-parser'); // Add this line
+const bodyParser = require('body-parser'); 
 
 // Use body-parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -83,6 +83,33 @@ app.post('/stores/update/:sid', (req, res) => {
   );
 });
 
+// Define the route for deleting a product
+app.get('/products/delete/:pid', (req, res) => {
+    const pid = req.params.pid;
+  
+    // Check if the product is sold in any store
+    pool.query('SELECT COUNT(*) AS storeCount FROM store_product WHERE pid = ?', [pid], (error, result) => {
+      if (error) {
+        return res.status(500).send('Error checking product associations in the database');
+      }
+  
+      const storeCount = result[0].storeCount;
+  
+      if (storeCount === 0) {
+        // If the product is not sold in any store, delete it
+        pool.query('DELETE FROM product WHERE pid = ?', [pid], (deleteError) => {
+          if (deleteError) {
+            return res.status(500).send('Error deleting product from the database');
+          }
+          res.redirect('/products');
+        });
+      } else {
+        // If the product is sold in one or more stores, show an error message
+        return res.status(400).send('Cannot delete product. It is sold in one or more stores.');
+      }
+    });
+  });
+  
 // Define the route for the Products Page
 app.get('/products', (req, res) => {
     // Fetch details of all products from the database
