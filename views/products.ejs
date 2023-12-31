@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products Page</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+  <h1>Products Page</h1>
+  <table>
+    <thead>
+      <tr>
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+        <th>Product ID</th>
+        <th>Product Description</th>
+        <th>Store ID</th>
+        <th>Location</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+        <tr>
+          <td><%= product.product_id %></td>
+          <td><%= product.description %></td>
+          <td><%= product.sid %></td>
+          <td><%= product.location %></td>
+          <td><%= product.price %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

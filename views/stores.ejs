@@ -9,17 +9,15 @@
 <body>
   <h1>Stores Page</h1>
   
-  <!-- Table structure for displaying store details -->
+  
   <table>
-    <!-- Table header containing column names -->
     <thead>
       <tr>
         <!-- Navigation link to the Home page -->
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-        
-        <!-- Headers -->
+        <th colspan="4"><a href="/">Home</a></th>
+      </tr>
+      <!-- Headers -->
+      <tr>
         <th>Store ID</th>
         <th>Location</th>
         <th>Manager ID</th>
@@ -27,20 +25,20 @@
       </tr>
     </thead>
     <!-- Table body containing store details -->
-    <tbody>
-      <% stores.forEach(store => { %>
-       
-        <tr>
-          <!-- Table containing store details -->
-          <td><%= store.sid %></td>
-          <td><%= store.location %></td>
-          <td><%= store.mgrid %></td>
-          
-          <!-- Column with a link to update the store -->
-          <td><a href="/update/<%= store.sid %>">Update</a></td>
-        </tr>
-      <% }) %>
-    </tbody>
+  <tbody>
+  <% stores.forEach(store => { %>
+    <tr>
+      <!-- Table containing store details -->
+      <td><%= store.sid %></td>
+      <td><%= store.location %></td>
+      <td><%= store.mgrid %></td>
+      
+      <!-- Column with a link to update the store -->
+      <td><a href="/stores/update/<%= store.sid %>">Update</a></td>
+    </tr>
+  <% }) %>
+</tbody>
+
   </table>
   
   <nav>
@@ -50,5 +48,6 @@
   </nav>
 </body>
 </html>
+
 
 
