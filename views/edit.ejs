@@ -9,17 +9,38 @@
 <body>
   <h1>Edit Store</h1>
   <form method="post" action="/stores/update/<%= store.sid %>">
-
+    <!-- Include an input field for SID -->
+    <label for="sid">Store ID:</label>
+    <input type="text" id="sid" name="sid" value="<%= store.sid %>" required readonly> <!-- readonly to make SID not editable -->
+    <!-- Include an input field for Location-->
     <label for="location">Location:</label>
-    <input type="text" id="location" name="location" value="<%= store.location %>" required>
-
+    <input type="text" id="location" name="location" value="<%= store.location %>" required minlength="1"> <!-- minlength so user has to put at least 1 char-->
+    <!-- Include an input field for ID -->
     <label for="mgrid">Manager ID:</label>
     <input type="text" id="mgrid" name="mgrid" value="<%= store.mgrid %>" required>
 
     <button type="submit">Update Store</button>
   </form>
+  <script>// Added some js to get the popup to display the correct message
+    document.addEventListener('DOMContentLoaded', function () {
+      var locationInput = document.getElementById('location');
+      var locationError = document.getElementById('locationError');
+
+      locationInput.addEventListener('input', function () {
+        // Check if the value is missing (empty)
+        if (locationInput.validity.valueMissing) {
+          locationInput.setCustomValidity('Location must be at least 1 character');// Set a custom validation message for a missing value
+        } else {
+          locationInput.setCustomValidity('');
+        }
+         // Update the error message display
+        locationError.innerHTML = locationInput.validationMessage;
+      });
+    });
+  </script>
 </body>
 </html>
+
 
 
 
