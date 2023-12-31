@@ -65,6 +65,11 @@ app.post('/stores/update/:sid', (req, res) => {
   const sid = req.params.sid;
   const { location, mgrid } = req.body;
 
+  // Checks to see if ID is 4 chars
+  if (mgrid.length !== 4) {
+    return res.status(400).send('Manager ID must be 4 characters');
+  }
+
   // Update the store in the database
   pool.query(
     'UPDATE store SET location = ?, mgrid = ? WHERE sid = ?',

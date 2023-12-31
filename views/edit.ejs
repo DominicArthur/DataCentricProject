@@ -17,7 +17,9 @@
     <input type="text" id="location" name="location" value="<%= store.location %>" required minlength="1"> <!-- minlength so user has to put at least 1 char-->
     <!-- Include an input field for ID -->
     <label for="mgrid">Manager ID:</label>
-    <input type="text" id="mgrid" name="mgrid" value="<%= store.mgrid %>" required>
+    <input type="text" id="mgrid" name="mgrid" value="<%= store.mgrid %>" maxlength="4" required>
+    <!-- Displays custom error message -->
+    <span id="mgridError"></span>
 
     <button type="submit">Update Store</button>
   </form>
@@ -36,7 +38,22 @@
          // Update the error message display
         locationError.innerHTML = locationInput.validationMessage;
       });
+    
+    var mgridInput = document.getElementById('mgrid');
+    var mgridError = document.getElementById('mgridError');
+
+    mgridInput.addEventListener('input', function () {
+      // Check if Manager ID is not 4 characters
+      if (mgridInput.value.length !== 4) {
+        mgridInput.setCustomValidity('Manager ID must be 4 characters');
+        mgridError.innerHTML = 'Manager ID must be 4 characters';
+      } else {
+        mgridInput.setCustomValidity('');
+      }
+
+      mgridError.innerHTML = mgridInput.validationMessage;
     });
+});
   </script>
 </body>
 </html>
