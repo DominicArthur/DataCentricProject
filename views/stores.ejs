@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stores Page</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+
+</head>
+<body>
+  <h1>Stores Page</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Store ID</th>
+        <th>Location</th>
+        <th>Manager ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% stores.forEach(store => { %>
+        <tr>
+          <td><%= store.sid %></td>
+          <td><%= store.location %></td>
+          <td><%= store.mgrid %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
+
+
