@@ -4,32 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stores Page</title>
-  <link rel="stylesheet" type="text/css" href="/styles.css">
-
+  <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
   <h1>Stores Page</h1>
+  
+  <!-- Table structure for displaying store details -->
   <table>
+    <!-- Table header containing column names -->
     <thead>
       <tr>
-        <li><a href="/">Home</a></li>
+        <!-- Navigation link to the Home page -->
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+        
+        <!-- Headers -->
         <th>Store ID</th>
         <th>Location</th>
         <th>Manager ID</th>
         <th>Action</th>
       </tr>
     </thead>
+    <!-- Table body containing store details -->
     <tbody>
       <% stores.forEach(store => { %>
+       
         <tr>
+          <!-- Table containing store details -->
           <td><%= store.sid %></td>
           <td><%= store.location %></td>
           <td><%= store.mgrid %></td>
-          <td><button onclick="updateStore('<%= store.sid %>')">Update</button></td>
+          
+          <!-- Column with a link to update the store -->
+          <td><a href="/update/<%= store.sid %>">Update</a></td>
         </tr>
       <% }) %>
     </tbody>
   </table>
+  
   <nav>
     <ul>
       <li><a href="/add-store">Add Store</a></li> 
