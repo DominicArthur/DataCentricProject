@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Managers Page</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+  <h1>Managers Page</h1>
+  <ul>
+    <% managers.forEach(manager => { %>
+      <li><%= manager.firstName %> <%= manager.lastName %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>

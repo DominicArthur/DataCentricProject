@@ -1,14 +1,16 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const mysql = require('mysql');
 const ejs = require('ejs');
 const bodyParser = require('body-parser'); 
+const mongoose = require('mongoose');
+const { Manager } = require('./mongodb');
+
+const app = express();
+const port = 3000;
 
 // Use body-parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const port = 3000;
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -90,6 +92,7 @@ app.get('/products/delete/:pid', (req, res) => {
     // Check if the product is sold in any store
     pool.query('SELECT COUNT(*) AS storeCount FROM store_product WHERE pid = ?', [pid], (error, result) => {
       if (error) {
+        console.error('Error checking product associations in the database:', error);
         return res.status(500).send('Error checking product associations in the database');
       }
   
@@ -99,7 +102,8 @@ app.get('/products/delete/:pid', (req, res) => {
         // If the product is not sold in any store, delete it
         pool.query('DELETE FROM product WHERE pid = ?', [pid], (deleteError) => {
           if (deleteError) {
-            return res.status(500).send('Error deleting product from the database');
+            console.error('Error deleting product from the database:', deleteError);// Error wont show up on the page
+            return res.status(500).send('Error Deleting Product');// 
           }
           res.redirect('/products');
         });
@@ -130,6 +134,17 @@ app.get('/products', (req, res) => {
     });
   });
   
+
+  // Route to fetch and display Managers
+app.get('/managers', async (req, res) => {
+  try {
+    const managers = await Manager.find({});
+    res.render('managers', { managers });
+  } catch (error) {
+    console.error('Error fetching managers from MongoDB:', error);
+    res.status(500).send('Error fetching managers');
+  }
+});
 
 // Start the server and listen on the specified port
 app.listen(port, () => {
