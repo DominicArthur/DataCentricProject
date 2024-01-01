@@ -146,6 +146,29 @@ app.get('/managers', async (req, res) => {
   }
 });
 
+// Define the route for adding a store (GET request to show the form)
+app.get('/stores/add', (req, res) => {
+  res.render('addStore');
+});
+
+// Define the route for adding a store (POST request for form submission)
+app.post('/stores/add', (req, res) => {
+  const { storeId, location, mgrid } = req.body;
+
+// Makes sure manager id is 4 chars
+  if (mgrid.length !== 4) {
+    return res.status(400).send('Manager ID must be 4 characters');
+}
+
+  const insertQuery = 'INSERT INTO store (sid, location, mgrid) VALUES (?, ?, ?)';
+  pool.query(insertQuery, [storeId, location, mgrid], (error) => {
+      if (error) {
+          return res.status(500).send('Error adding store to the database');
+      }
+      res.redirect('/stores');
+  });
+});
+
 // Start the server and listen on the specified port
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);

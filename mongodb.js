@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/companyDB', {
   useNewUrlParser: true,
@@ -23,4 +23,4 @@ const Manager = mongoose.model('Manager', managerSchema);
 module.exports = {
   Manager
 };
-
+*/
